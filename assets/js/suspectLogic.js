@@ -10,6 +10,7 @@ async function createCompleteSuspectsjson(allSuspects){
             suspect.car.sighting = await fetchFromApi("sighting/" + "car/" + suspect.car.licenseplate);
         } 
         suspect.motive = allMotives.find(i => i.suspectId == suspect.id)?.text;
+        suspect.alibi = (await fetchFromApi("alibi/" + suspect.id))[0]?.description;
         suspect.suspiciousness = calculateSuspectSuspiciousness(suspect);
     }
     console.log(allSuspects);
