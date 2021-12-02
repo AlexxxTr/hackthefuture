@@ -1,8 +1,6 @@
 
 async function createCompleteSuspectsjson(allSuspects){
-    console.log(allSuspects);
     let allCars = await fetchFromApi("car")
-    console.log(allCars);
     let allMotives = await fetchFromApi("motive")
 
     for (let suspect of allSuspects){
@@ -13,6 +11,7 @@ async function createCompleteSuspectsjson(allSuspects){
         suspect.motive = allMotives.find(i => i.suspectId == suspect.id)?.text;
     }
     console.log(allSuspects);
+    return allSuspects;
 }
 
 function calculateSuspectSuspiciousness(suspect){

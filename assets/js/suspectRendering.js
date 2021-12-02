@@ -1,5 +1,5 @@
 
-function renderSmallSuspectView(allSuspects){
+function generateSuspects(allSuspects){
     console.log(allSuspects);
     
 }
