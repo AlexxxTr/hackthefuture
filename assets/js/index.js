@@ -17,8 +17,8 @@ function index(){
 
 function renderSuspects(){
     fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
-    .then(response => response.text())
-    .then(result => renderSmallSuspectView(result))
+    .then(response => response.json())
+    .then(result => createCompleteSuspectsjson(result))
     .then(() => function(){
         suspectContainer = document.querySelector("#suspects")
         for(let suspect in this.suspects){
