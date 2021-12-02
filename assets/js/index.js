@@ -12,7 +12,7 @@ const requestOptions = {
 
 
 function index(){
-    //renderSuspects()
+    renderSuspects()
 }
 
 function renderSuspects(){

@@ -13,6 +13,7 @@ async function createCompleteSuspectsjson(allSuspects){
         suspect.alibi = (await fetchFromApi("alibi/" + suspect.id))[0]?.description;
         suspect.suspiciousness = calculateSuspectSuspiciousness(suspect);
     }
+    allSuspects.sort(dynamicSort('suspiciousness'));
     console.log(allSuspects);
 }
 
@@ -37,11 +38,25 @@ function calculateSuspectSuspiciousness(suspect){
     return suspiciousness;
 }
 
+function dynamicSort(property) {
+    let sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+     return function (a,b) {
+        let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
+
 async function fetchFromApi(endpoint){
     let res;
     await fetch("https://htf-2021.zinderlabs.com/" + endpoint, requestOptions)
     .then(response => response.json())
     .then(result => res = result)
+    .catch(error => console.log(error))
     return res;
 }
 
