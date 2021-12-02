@@ -3,6 +3,7 @@ async function createCompleteSuspectsjson(allSuspects){
     console.log(allSuspects);
     let allCars = await fetchFromApi("car")
     let allMotives = await fetchFromApi("motive")
+    let fingerprints = (await fetchFromApi("fingerprint/Insulinespuit")).fingerprints;
 
     for (let suspect of allSuspects){
         suspect.car = allCars.find(i => i.owner == suspect.name);
@@ -11,13 +12,13 @@ async function createCompleteSuspectsjson(allSuspects){
         } 
         suspect.motive = allMotives.find(i => i.suspectId == suspect.id)?.text;
         suspect.alibi = (await fetchFromApi("alibi/" + suspect.id))[0]?.description;
-        suspect.suspiciousness = calculateSuspectSuspiciousness(suspect);
+        suspect.suspiciousness = await calculateSuspectSuspiciousness(suspect, fingerprints);
     }
-    allSuspects.sort(dynamicSort('suspiciousness'));
+    allSuspects.sort(dynamicSort('-suspiciousness'));
     console.log(allSuspects);
 }
 
-function calculateSuspectSuspiciousness(suspect){
+async function calculateSuspectSuspiciousness(suspect,fingerprints){
     let suspiciousness = 0;
     if (suspect.motive == undefined){
         suspiciousness -= 3;
@@ -34,6 +35,10 @@ function calculateSuspectSuspiciousness(suspect){
         suspiciousness -= 3;
     } else {
         suspiciousness += 3;
+    }
+    
+    if (fingerprints.includes(suspect.id)){
+        suspiciousness += 20;
     }
     return suspiciousness;
 }
