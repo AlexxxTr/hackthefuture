@@ -1,4 +1,5 @@
 const myHeaders = new Headers();
+
 myHeaders.append('userId', 'nietdevoorlaatste362');
 
 document.addEventListener("DOMContentLoaded", index)
@@ -16,12 +17,14 @@ function index(){
 
 function renderSuspects(){
     fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
-    .then(suspects => function(suspects){
+    .then(response => response.json())
+    .then(result => createCompleteSuspectsjson(result))
+    .then(() => function(){
         suspectContainer = document.querySelector("#suspects")
-        for(suspect in suspects){
+        for(let suspect in this.suspects){
             suspectContainer.innerHTML += `
                 
             `;
         }
     }).catch(err => console.log('error', err));
-};
+}
