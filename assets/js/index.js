@@ -1,13 +1,27 @@
 const myHeaders = new Headers();
 myHeaders.append('userId', 'nietdevoorlaatste362');
 
+document.addEventListener("DOMContentLoaded", index)
+
 const requestOptions = {
     method: 'GET',
     headers: myHeaders,
     redirect: 'follow'
 };
 
-fetch("https://htf-2021.zinderlabs.com/uri", requestOptions)
-    .then(res => res.text())
-    .then(res => console.log(res))
-    .catch(err => console.log('error', err));
+
+function index(){
+    renderSuspects()
+}
+
+function renderSuspects(){
+    fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
+    .then(suspects => function(suspects){
+        suspectContainer = document.querySelector("#suspects")
+        for(suspect in suspects){
+            suspectContainer.innerHTML += `
+                
+            `;
+        }
+    }).catch(err => console.log('error', err));
+}
