@@ -19,7 +19,7 @@ async function createCompleteSuspectsjson(allSuspects){
 function calculateSuspectSuspiciousness(suspect){
     let suspiciousness = 0;
     if (suspect.motive == undefined){
-        suspiciousness =-3;
+        suspiciousness -= 3;
     } else {
         suspiciousness += 5;
     }
@@ -28,6 +28,11 @@ function calculateSuspectSuspiciousness(suspect){
         if (!(leaveHourCar <= 01 || leaveHourCar >= 11)){
             suspiciousness += 50;
         }
+    }
+    if (suspect.alibi){
+        suspiciousness -= 3;
+    } else {
+        suspiciousness += 3;
     }
     return suspiciousness;
 }
