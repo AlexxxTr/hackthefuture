@@ -24,4 +24,4 @@ function renderSuspects(){
             `;
         }
     }).catch(err => console.log('error', err));
-}
+};
