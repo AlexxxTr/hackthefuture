@@ -1,5 +1,5 @@
 const myHeaders = new Headers();
-myHeaders.append('userId', 'filling this in later');
+myHeaders.append('userId', 'nietdevoorlaatste362');
 
 const requestOptions = {
     method: 'GET',
