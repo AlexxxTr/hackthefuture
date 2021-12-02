@@ -11,15 +11,22 @@ const requestOptions = {
 };
 
 
-function index(){
+function index() {
     renderSuspects()
 }
 
-function renderSuspects(){
-    fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
-    .then(response => response.json())
-    .then(result => createCompleteSuspectsjson(result))
-    .then(res => (res) => {
-        console.log(res)
-    }).catch(err => console.log('error', err));
+async function renderSuspects() {
+    let res;
+    await fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
+        .then(response => response.json())
+        // .then(result => jsonSuspects(result))
+        .then(result => res = result)
+        .catch(err => console.log('error', err));
+    res.forEach(generateSuspect)
+}
+
+function globalEvent(event, selector, cb) {
+    document.addEventListener(event, e => {
+        if(e.target.matches(selector)) cb(e)
+    })
 }
