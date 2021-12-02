@@ -1,0 +1,33 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.grid-custom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 10% 90%;
+    grid-template-areas:
+        "header header2 header2 header2"
+        "nav main main detail"
+        "nav main main detail";
+}
+
+.header {
+    grid-area: header;
+}
+
+.header2 {
+    grid-area: header2;
+}
+
+.nav {
+    grid-area: nav;
+}
+
+.main {
+    grid-area: main;
+}
+
+.detail {
+    grid-area: detail;
+}
