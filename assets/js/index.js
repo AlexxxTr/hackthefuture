@@ -1,5 +1,8 @@
 const myHeaders = new Headers();
+
 myHeaders.append('userId', 'nietdevoorlaatste362');
+
+document.addEventListener("DOMContentLoaded", index)
 
 const requestOptions = {
     method: 'GET',
@@ -7,7 +10,21 @@ const requestOptions = {
     redirect: 'follow'
 };
 
-fetch("https://htf-2021.zinderlabs.com/uri", requestOptions)
-    .then(res => res.text())
-    .then(res => console.log(res))
-    .catch(err => console.log('error', err));
+
+function index(){
+    renderSuspects()
+}
+
+function renderSuspects(){
+    fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
+    .then(response => response.text())
+    .then(result => renderSmallSuspectView(result))
+    .then(() => function(){
+        suspectContainer = document.querySelector("#suspects")
+        for(let suspect in this.suspects){
+            suspectContainer.innerHTML += `
+                
+            `;
+        }
+    }).catch(err => console.log('error', err));
+}
