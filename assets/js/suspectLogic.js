@@ -2,7 +2,6 @@
 async function createCompleteSuspectsjson(allSuspects){
     console.log(allSuspects);
     let allCars = await fetchFromApi("car")
-    console.log(allCars);
     let allMotives = await fetchFromApi("motive")
 
     for (let suspect of allSuspects){
@@ -11,6 +10,7 @@ async function createCompleteSuspectsjson(allSuspects){
             suspect.car.sighting = await fetchFromApi("sighting/" + "car/" + suspect.car.licenseplate);
         } 
         suspect.motive = allMotives.find(i => i.suspectId == suspect.id)?.text;
+        suspect.suspiciousness = calculateSuspectSuspiciousness(suspect);
     }
     console.log(allSuspects);
 }
@@ -22,6 +22,13 @@ function calculateSuspectSuspiciousness(suspect){
     } else {
         suspiciousness += 5;
     }
+    if (suspect.car && suspect.car.sighting[0]){
+        let leaveHourCar = parseInt(suspect.car.sighting[0].endTime.split(":")[0])
+        if (!(leaveHourCar <= 01 || leaveHourCar >= 11)){
+            suspiciousness += 50;
+        }
+    }
+    return suspiciousness;
 }
 
 async function fetchFromApi(endpoint){
