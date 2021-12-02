@@ -7,7 +7,7 @@ const requestOptions = {
     redirect: 'follow'
 };
 
-fetch("https://htf-2021.zinderlabs.com/uri", requestOptions)
-    .then(res => res.text())
+fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
+    .then(res => res.json())
     .then(res => console.log(res))
     .catch(err => console.log('error', err));
