@@ -12,17 +12,19 @@ const requestOptions = {
 
 
 function index() {
-    renderSuspects()
+    if (!localStorage.getItem('suspects')) renderSuspects()
+    res = JSON.parse(localStorage.getItem('suspects'));    
+    res.forEach(generateSuspect)
 }
 
 async function renderSuspects() {
     let res;
     await fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
         .then(response => response.json())
-        // .then(result => jsonSuspects(result))
+        .then(result => jsonSuspects(result))
         .then(result => res = result)
         .catch(err => console.log('error', err));
-    res.forEach(generateSuspect)
+    localStorage.setItem("suspects", JSON.stringify(res));
 }
 
 function globalEvent(event, selector, cb) {

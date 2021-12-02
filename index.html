@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script defer src="assets/js/index.js"></script>
     <script defer src="assets/js/suspectRendering.js"></script>
     <script defer src="assets/js/suspectLogic.js"></script>
+    <script defer src="assets/js/detailRending.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +13,7 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body class="grid-custom h-screen">
     <header class="header text-center text-2xl font-bold mt-4 flex flex-col items-center justify-center">
         <h1>Hack The Future</h1>
@@ -29,10 +32,10 @@
             <label for="name"></label>
             <input type="text" name="name" id="name" placeholder="Look here by name">
         </form>
-        <div id="suspects" class="flex flex-row flex-wrap justify-between items-center ">
+        <div id="suspects" class="flex flex-row flex-wrap justify-between items-center overflow-y-scroll h-2/5">
         </div>
     </main>
-    <div class="detail">
+    <div class="detail mt-4 flex flex-col justify-between items-start">
 
     </div>
 </body>
