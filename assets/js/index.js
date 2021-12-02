@@ -11,20 +11,24 @@ const requestOptions = {
 };
 
 
-function index(){
-    renderSuspects()
+function index() {
+    if (!localStorage.getItem('suspects')) renderSuspects()
+    res = JSON.parse(localStorage.getItem('suspects'));    
+    res.forEach(generateSuspect)
 }
 
-function renderSuspects(){
-    fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
-    .then(response => response.json())
-    .then(result => createCompleteSuspectsjson(result))
-    .then(() => function(){
-        suspectContainer = document.querySelector("#suspects")
-        for(let suspect in this.suspects){
-            suspectContainer.innerHTML += `
-                
-            `;
-        }
-    }).catch(err => console.log('error', err));
+async function renderSuspects() {
+    let res;
+    await fetch("https://htf-2021.zinderlabs.com/suspect", requestOptions)
+        .then(response => response.json())
+        .then(result => jsonSuspects(result))
+        .then(result => res = result)
+        .catch(err => console.log('error', err));
+    localStorage.setItem("suspects", JSON.stringify(res));
+}
+
+function globalEvent(event, selector, cb) {
+    document.addEventListener(event, e => {
+        if(e.target.matches(selector)) cb(e)
+    })
 }
